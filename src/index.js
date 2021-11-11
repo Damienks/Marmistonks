@@ -3,10 +3,28 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Route, Switch } from 'react-router-dom' 
+
+const Root = () =>(
+  <BrowserRouter>
+        <Switch>
+          <Route exact path='/' component={App} />
+          <Route exact path='/login'>
+            <App formType="login" />
+          </Route>
+          <Route exact path='/create-account'>
+            <App formType="create-account" />
+          </Route>
+          <Route>
+              <p>Il n'y a rien ici !</p>
+          </Route>
+        </Switch>
+    </BrowserRouter>
+)
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Root />
   </React.StrictMode>,
   document.getElementById('root')
 );
