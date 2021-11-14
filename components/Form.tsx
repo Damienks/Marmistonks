@@ -1,60 +1,35 @@
 import React, { FC, Fragment, useState } from 'react'
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { app } from '../src/Database'
+import { useDispatch } from 'react-redux';
+import { createUser } from '../actions/user.actions'
 
 interface FormProps{
-    formType:string,
-    setLoggedUseridEvent: (userId:string) => void
+    formType:string
 }
 
-const Form:FC<FormProps> = ({ formType, setLoggedUseridEvent }) =>{
+const Form:FC<FormProps> = ({ formType }) =>{
 
     const [UserPseudo, setUserPseudo] = useState('')
     const [UserEmail, setUserEmail] = useState('')
     const [UserPassword, setUserPassword] = useState('')
     const [IsLoading, setIsLoading] = useState<boolean>(false)
+    const dispatch = useDispatch();
 
-    const isLoginFormType = formType === 'login'
+    const isLoginFormType:boolean = formType === 'login'
 
     const handleSubmit:React.FormEventHandler<HTMLFormElement> | undefined = event => event.preventDefault()
-
-    const handleUser = (userName:string) =>{
-        setIsLoading(true);
-        getAuth(app).onAuthStateChanged(function(user:any) {
-          if (user) {
-            if(userName != null && userName.trim() !== ""){
-              updateProfile(user, {
-                  displayName : userName
-              }).then(() => {
-                setLoggedUseridEvent(user.auth.currentUser.uid)
-                console.log(user.auth.currentUser.displayName)
-              }).catch((error) => {
-                  const errorCode = error.code;
-                  const errorMessage = error.message;
-                  alert(errorCode + ' : ' + errorMessage)
-              });
-              setIsLoading(false)
-            }
-            else{
-                setLoggedUseridEvent(user.auth.currentUser.uid)
-                setIsLoading(false)
-            }
-          } else {
-            console.log('Aucun utilisateur connecté...')
-            setIsLoading(false)
-          }
-        });
-      }
 
     const handleLoginProcess = (loginType:string) =>{
         if(loginType !== "createAnAccount"){
             if(loginType === 'mail'){
+                // TODO : dispatch reducer action "LOGIN_USER"
                 // Connexion via E-mail
                 if(UserEmail.trim() !== '' && UserPassword.trim() !== ''){
                     const auth = getAuth(app);
                     signInWithEmailAndPassword(auth, UserEmail, UserPassword)
                     .then(() => {
-                        handleUser('')
+                        //handleUser('')
                     })
                     .catch((error) => {
                         const errorCode = error.code;
@@ -70,18 +45,9 @@ const Form:FC<FormProps> = ({ formType, setLoggedUseridEvent }) =>{
     }
 
     const handleAccountCreationProcess = () =>{
-        // Todo : création de compte
-        const auth = getAuth();
-        createUserWithEmailAndPassword(auth, UserEmail, UserPassword)
-        .then(() => {
-            // Signed in 
-            handleUser(UserPseudo)
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            alert(errorCode + ' : ' + errorMessage)
-        });
+        // Account creation
+        if(UserPseudo.trim() !== '' && UserEmail.trim() !== '' && UserPassword.trim() !== '')
+            dispatch(createUser(UserPseudo, UserEmail, UserPassword));
     }
 
     const handleUserPseudoChange:React.ChangeEventHandler<HTMLInputElement> | undefined = event => setUserPseudo(event.target.value)
@@ -125,7 +91,7 @@ const Form:FC<FormProps> = ({ formType, setLoggedUseridEvent }) =>{
                     <button className='w-100-p btn bg-secondary' onClick={ !isLoginFormType ? handleAccountCreationProcess : () => handleLoginProcess('mail') } type="submit"> { isLoginFormType ? 'Se connecter' : 'Créer un compte'}</button>
                 </div>
             </form>    
-            <a href={isLoginFormType ? '/create-account' : '/login'} className='w-100-p col btn bg-tertiary'> { isLoginFormType ? 'Créer un compte' : 'Se connecter'}</a>
+            <a href={isLoginFormType ? '/account' : '/login'} className='w-100-p col btn bg-tertiary'> { isLoginFormType ? 'Créer un compte' : 'Se connecter'}</a>
         </div>
     );
     

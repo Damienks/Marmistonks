@@ -1,29 +1,33 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { FC, useState } from 'react'
+import Head from 'next/head'
+import { FC } from 'react'
 import Header from '../components/Header';
-import Form from '../components/Form';
+import Dashboard from '../components/Dashboard';
+import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import rootReducer from '../reducers'
+import thunk from 'redux-thunk';
+import { getUser } from '../actions/user.actions';
+
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+)
+
+store.dispatch(getUser());
 
 const Login:FC = () => {
-
-  const [LoggedUserId, setLoggedUserId] = useState<string>('')
-
-  if(LoggedUserId){
-    alert(LoggedUserId)
-  }
-
   return (
-    <div className="app source-sans color-primary">
-      <Header />
-      { <div className='container'>
-          <div className='rounded row bg-white p-20 justify-content-md-center'>
-            <div className='col-5'>
-              { <Form formType='login' setLoggedUseridEvent={ setLoggedUserId } /> }
-            </div>
-          </div>
-        </div>
-      }
-      
-    </div>
+    <Provider store={ store }>
+      <Head>
+        <title>Marmistonks | Login</title>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+      <main className="app source-sans color-primary">
+        <Header />
+        { <Dashboard type='login'/> }
+      </main>
+    </Provider>
   );
 }
 
