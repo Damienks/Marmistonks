@@ -25,7 +25,7 @@ const Dashboard:FC<DashboardProps> = ({ type }) =>{
                         {!UserLoggedIn && type ==='account' && <div className='col-5'><Form formType='create-account' /></div> }
                         {/* User connected : informations displayed */}
                         {UserLoggedIn && type ==='account' && 
-                            <h2 className='signika' >Mon compte</h2>
+                            <h2 className='signika text-3xl' >Mon compte</h2>
                         }
                     </div>
                 </div>

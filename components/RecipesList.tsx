@@ -18,7 +18,7 @@ const RecipesList:FC = () =>{
             <div className='container'>
                 <div className='rounded row bg-white p-20 justify-content-md-center'>
                     <div className='row text-center m-bottom-20'>
-                        <h3 className='signika color-secondary'>Les recettes les plus récentes</h3>
+                        <h3 className='signika color-secondary text-2xl'>Les recettes les plus récentes</h3>
                     </div>
                     { Recipes.length &&
                         <ul className='row recipe-list'>

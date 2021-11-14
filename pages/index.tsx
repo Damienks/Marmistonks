@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import logo from '../src/logo.svg';
 import { FC, useEffect, useState } from "react"
 import Header from "../components/Header"
 import RecipesList from "../components/RecipesList"
@@ -29,10 +28,10 @@ const Root:FC = () =>{
   return(
     <Provider store={ store }>
       <Head>
-        <title>Marmistonks</title>
+        <title>marmistonks</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div className="app source-sans color-primary">
+      <div className="app source-sans color-primary text-base">
         { !IsLoading &&
           <Header />
         }

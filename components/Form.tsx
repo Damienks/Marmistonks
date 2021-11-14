@@ -1,5 +1,5 @@
 import React, { FC, Fragment, useState } from 'react'
-import { getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from '../src/Database'
 import { useDispatch } from 'react-redux';
 import { createUser } from '../actions/user.actions'
@@ -59,7 +59,7 @@ const Form:FC<FormProps> = ({ formType }) =>{
     return (
         !IsLoading &&
         <div className='text-center'>
-            <h3 className='signika'>
+            <h3 className='signika text-2xl'>
                 {
                     isLoginFormType 
                     ? 'Connectez-vous en un clic avec Facebook !'
@@ -79,7 +79,7 @@ const Form:FC<FormProps> = ({ formType }) =>{
                     isLoginFormType &&
                     <Fragment>
                         <p className='no-margin'>ou</p>
-                        <h3 className='signika'>connectez-vous avec vos identifiants <br/><strong>Ma Boîte à Recettes</strong></h3>
+                        <h3 className='signika text-2xl'>connectez-vous avec vos identifiants <br/><strong>Ma Boîte à Recettes</strong></h3>
                     </Fragment>
                 }
                 <div className='m-top-20 m-bottom-20'>

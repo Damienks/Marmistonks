@@ -20,10 +20,10 @@ const Login:FC = () => {
   return (
     <Provider store={ store }>
       <Head>
-        <title>Marmistonks | Login</title>
+        <title>marmistonks | Login</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className="app source-sans color-primary">
+      <main className="app source-sans color-primary text-base">
         <Header />
         { <Dashboard type='login'/> }
       </main>

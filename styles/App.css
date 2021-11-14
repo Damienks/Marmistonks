@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Signika:wght@300;400;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body {
   background: #ececec;
 }
@@ -397,57 +400,6 @@ body {
 }
 
 /* --- FONTS --- */
-.f-size-10 {
-  font-size: 10px;
-}
-.f-size-11 {
-  font-size: 11px;
-}
-.f-size-12 {
-  font-size: 12px;
-}
-.f-size-13 {
-  font-size: 13px;
-}
-.f-size-14 {
-  font-size: 14px !important;
-}
-.f-size-15 {
-  font-size: 15px !important;
-}
-.f-size-16 {
-  font-size: 16px;
-}
-.f-size-18 {
-  font-size: 18px;
-}
-.f-size-19 {
-  font-size: 19px;
-}
-.f-size-20 {
-  font-size: 20px;
-}
-.f-size-22 {
-  font-size: 22px;
-}
-.f-size-24 {
-  font-size: 24px;
-}
-.f-size-26 {
-  font-size: 26px !important;
-}
-.f-size-28 {
-  font-size: 28px;
-}
-.f-size-30 {
-  font-size: 30px;
-}
-.f-size-32 {
-  font-size: 32px;
-}
-.f-size-40 {
-  font-size: 40px;
-}
 .f-italic {
   font-style:italic;
 }
