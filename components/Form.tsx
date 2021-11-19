@@ -13,7 +13,6 @@ const Form:FC<FormProps> = ({ formType }) =>{
     const [UserPseudo, setUserPseudo] = useState('')
     const [UserEmail, setUserEmail] = useState('')
     const [UserPassword, setUserPassword] = useState('')
-    const [IsLoading, setIsLoading] = useState<boolean>(false)
     const dispatch = useDispatch();
 
     const isLoginFormType:boolean = formType === 'login'
@@ -44,7 +43,8 @@ const Form:FC<FormProps> = ({ formType }) =>{
         }
     }
 
-    const handleAccountCreationProcess = () =>{
+    const handleAccountCreationProcess = (e) =>{
+        e.preventDefault();
         // Account creation
         if(UserPseudo.trim() !== '' && UserEmail.trim() !== '' && UserPassword.trim() !== '')
             dispatch(createUser(UserPseudo, UserEmail, UserPassword));
@@ -57,7 +57,6 @@ const Form:FC<FormProps> = ({ formType }) =>{
     const handleUserPasswordChange:React.ChangeEventHandler<HTMLInputElement> | undefined = event => setUserPassword(event.target.value)
 
     return (
-        !IsLoading &&
         <div className='text-center'>
             <h3 className='signika text-2xl'>
                 {

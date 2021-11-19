@@ -33,7 +33,7 @@ body {
   color:#fff;
 }
 
-.bg-secondary:hover{
+.btn.bg-secondary:hover{
   background-color:rgb(224, 79, 66)!important;
   color:#fff;
 }
@@ -47,7 +47,7 @@ body {
   color:#ff6f61;
 }
 
-.bg-tertiary:hover{
+.btn.bg-tertiary:hover{
   background-color:#dadada!important;
   color:#ff6f61;
 }
@@ -426,6 +426,11 @@ ul{
   list-style:none;
 }
 
+/* --- RESET BOOTSTRAP --- */
+.dropdown-toggle::after{
+  content:none;
+}
+
 /* --- APP STYLE --- */
 
 .recipe{
@@ -434,7 +439,8 @@ ul{
 }
 
 .recipe .img-w{
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   position:relative;
   height:255px;
   overflow: hidden;
