@@ -1,0 +1,21 @@
+/*
+  Slide animation styles.
+  You may need to add vendor prefixes for transform depending on your desired browser support.
+*/
+
+.slide-enter {
+  transform: translateY(-100%);
+  transition: 3s cubic-bezier(0, 1, 0.5, 1);
+}
+
+.slide-enter.slide-enter-active {
+  transform: translateY(0%);
+}
+
+.slide-leave {
+  transform: translateY(0%);
+  transition: 3s ease-in-out; 
+}
+.slide-leave.slide-leave-active {
+  transform: translateY(-100%);
+}

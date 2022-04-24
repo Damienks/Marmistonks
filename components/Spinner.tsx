@@ -6,7 +6,7 @@ interface SpinnerProps{
 
 const Spinner:FC<SpinnerProps> = ({ CssClass }) =>{
     return(
-        <div className={ CssClass ? 'spinner-border ' + CssClass : 'spinner-border' } role="status">
+        <div className={ CssClass ? 'spinner-border ' + CssClass : 'color-primary spinner-border' } role="status">
             <span className="sr-only">Loading...</span>
         </div>
     )

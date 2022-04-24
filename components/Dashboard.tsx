@@ -1,27 +1,34 @@
+import { getAuth } from "@firebase/auth";
 import { FC, Fragment, useEffect, useState } from "react"
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useSelector } from "react-redux";
+import { app } from "../src/Database";
 import Form from "./Form"
 import UserProfile from "./UserProfile";
+import Spinner from '../components/Spinner'
 
 interface DashboardProps{
     type:string
 }
 
+const auth = getAuth(app);
+
 const Dashboard:FC<DashboardProps> = ({ type }) =>{
     
     const [IsLoading, setIsLoading] = useState<boolean>(true)
+
+    // User values
+    const [userFromAuth, loading] = useAuthState(auth);
     const User = useSelector((state:any) => state.userReducer);
-    const HasUser:boolean = User != null ? Object.keys(User).length !== 0 : false;
-    const HasLoadedUser:boolean = User != null && User !== 'none' && User.displayName != null;
+    const HasLoadedUser:boolean = !loading && userFromAuth != null && User != null && User.displayName != null;
 
     if(type === 'login' && HasLoadedUser){
         // TODO : redirection home
     }
 
     useEffect(() =>{
-        if(HasUser || User ==='none')
-            setIsLoading(false)
-    },[HasUser, User]);
+        setIsLoading(loading);
+    },[loading]);
     
     return(
         <Fragment>
@@ -37,6 +44,11 @@ const Dashboard:FC<DashboardProps> = ({ type }) =>{
                             <UserProfile/>
                         }
                     </div>
+                </div>
+            }
+            {IsLoading &&
+                <div className='rounded row p-20 justify-content-md-center'>
+                    <Spinner CssClass='color-secondary' />
                 </div>
             }
         </Fragment>        

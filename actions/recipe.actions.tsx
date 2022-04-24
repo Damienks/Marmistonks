@@ -11,7 +11,7 @@ async function getRecipesFromDb(db:Firestore) {
         // Snapshot = en temps réel (d'ou le "await")
         const messageSnapshot = await getDocs(q);
         // On réucpère les docs à partir des données en temps réel
-        const docList = messageSnapshot.docs.map(doc => doc.data()); 
+        const docList = messageSnapshot.docs.map(doc => ({id: doc.id, ...doc.data()})); 
         return docList;
     }catch(error:any){
         console.log(error.code + ' : ' + error.message)

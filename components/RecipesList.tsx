@@ -1,7 +1,12 @@
 import { FC, Fragment, useEffect, useState } from "react"
+import styled, { keyframes } from "styled-components";
+import { fadeIn } from "react-animations";
 import { useSelector } from "react-redux"
-import Recipe from "../components/Recipe"
+import RecipeCard from "./RecipeCard"
 import Spinner from "../components/Spinner"
+
+
+const FadeIn = styled.div`animation: 0.8s ${keyframes`${fadeIn}`}`
 
 const RecipesList:FC = () =>{
     const [IsLoading, setIsLoading] = useState<boolean>(true)
@@ -21,19 +26,24 @@ const RecipesList:FC = () =>{
                         <h3 className='signika color-secondary text-2xl'>Les recettes les plus récentes</h3>
                     </div>
                     { Recipes.length &&
-                        <ul className='row recipe-list'>
-                            {
-                                Object.keys(Recipes).map((key) => 
-                                    <li className={Recipes.length > 2 ? 'col-4' : 'col'} key={'recipe-' + Recipes[key].userId + '-' + Recipes[key].createdAt.seconds}>
-                                        {<Recipe  
-                                            title={Recipes[key].title}
-                                            desc={Recipes[key].desc}
-                                            img={Recipes[key].imageUrl}
-                                        />}
-                                    </li>
-                                )
-                            }
-                        </ul>
+                        <FadeIn>
+                            <ul className='row recipe-list'>
+                                {
+                                    Object.keys(Recipes).map((key) => 
+                                        <li className={Recipes.length > 2 ? 'col-4' : 'col'} key={'recipe-' + Recipes[key].userId + '-' + Recipes[key].createdAt.seconds}>
+                                            {
+                                                <RecipeCard
+                                                id={Recipes[key].id}
+                                                title={Recipes[key].title}
+                                                desc={Recipes[key].desc}
+                                                img={Recipes[key].imageUrl}
+                                                />
+                                            }
+                                        </li>
+                                    )
+                                }
+                            </ul>
+                        </FadeIn>
                     }
                     {IsLoading &&
                         <Spinner CssClass='color-secondary' />
