@@ -4,11 +4,10 @@ import { fadeIn } from "react-animations";
 import { useSelector } from "react-redux"
 import RecipeCard from "./RecipeCard"
 import Spinner from "../components/Spinner"
+import { getRecipesFromDb } from "../actions/recipe.actions";
+import db from "../src/Database";
 
-
-const FadeIn = styled.div`animation: 0.8s ${keyframes`${fadeIn}`}`
-
-const RecipesList:FC = () =>{
+const RecipesList:FC<any> = ({ recipes }) =>{
     const [IsLoading, setIsLoading] = useState<boolean>(true)
     const Recipes = useSelector((state:any) => state.recipeReducer)
 
@@ -25,30 +24,26 @@ const RecipesList:FC = () =>{
                     <div className='row text-center m-bottom-20'>
                         <h3 className='signika color-secondary text-2xl'>Les recettes les plus récentes</h3>
                     </div>
-                    { Recipes.length &&
-                        <FadeIn>
-                            <ul className='row recipe-list'>
-                                {
-                                    Object.keys(Recipes).map((key) => 
-                                        <li className={Recipes.length > 2 ? 'col-4' : 'col'} key={'recipe-' + Recipes[key].userId + '-' + Recipes[key].createdAt.seconds}>
-                                            {
-                                                <RecipeCard
-                                                id={Recipes[key].id}
-                                                title={Recipes[key].title}
-                                                desc={Recipes[key].desc}
-                                                img={Recipes[key].imageUrl}
-                                                />
-                                            }
-                                        </li>
-                                    )
-                                }
-                            </ul>
-                        </FadeIn>
+                    { recipes &&
+                        
+                        <ul className='row recipe-list'>
+                            {
+                                Object.keys(recipes).map((key) => 
+                                    <li className={recipes.length > 2 ? 'col-4' : 'col'} key={'recipe-' + recipes[key].userId + '-' + recipes[key].createdAt.seconds}>
+                                        {
+                                            <RecipeCard
+                                            id={recipes[key].id}
+                                            title={recipes[key].title}
+                                            desc={recipes[key].desc}
+                                            img={recipes[key].imageUrl}
+                                            />
+                                        }
+                                    </li>
+                                )
+                            }
+                        </ul>
                     }
-                    {IsLoading &&
-                        <Spinner CssClass='color-secondary' />
-                    }
-                    {!IsLoading && !Recipes.length &&
+                    {!recipes &&
                         <h2 className='signika text-center'>Désolés ! Il semblerait qu'aucune recette n'ait encore été créée...</h2>
                     }
                 </div>
@@ -56,4 +51,5 @@ const RecipesList:FC = () =>{
         </Fragment>
     )
 }
+
 export default RecipesList

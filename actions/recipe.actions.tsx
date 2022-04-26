@@ -4,7 +4,7 @@ import db from '../src/Database'
 export const GET_RECIPES = "GET_RECIPES";
 
 // Création d'une fonction asynchrone scopée de récupération des données
-async function getRecipesFromDb(db:Firestore) {
+export async function getRecipesFromDb(db:Firestore) {
     try{
         // Requête de la collection sur laquelle on veut taper
         const q = query(collection(db, "recipes"), orderBy("createdAt", "desc"));
