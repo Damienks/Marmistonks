@@ -2,27 +2,19 @@ import Head from 'next/head'
 import { FC, useEffect } from "react"
 import Header from "../components/Header"
 import RecipesList from "../components/RecipesList"
-import rootReducer from "../reducers"
 import db from '../src/Database'
 
 // Redux
 import { Provider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
+import store from '../store/store';
 import { getRecipes, getRecipesFromDb } from '../actions/recipe.actions';
 import { getUser } from '../actions/user.actions';
-
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
-)
 
 const Root:FC<any> = ({recipes}) =>{
 
   useEffect(() => {
     store.dispatch(getUser());
-    store.dispatch(getRecipes());
+    // store.dispatch(getRecipes());
   },[])
 
   return(
@@ -39,8 +31,9 @@ const Root:FC<any> = ({recipes}) =>{
   )
 }
 
-export const getServerSideProps = async (context:any) =>{  
-  // Requête de la collection sur laquelle on veut taper
+// Server side rendering of the data
+export const getServerSideProps = async () =>{  
+  
   const recipes = await getRecipesFromDb(db);
   
   return { props:{ recipes: JSON.parse(JSON.stringify(recipes)) } }

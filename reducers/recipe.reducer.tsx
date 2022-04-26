@@ -1,10 +1,12 @@
-import { GET_RECIPES } from "../actions/recipe.actions"
+import { GET_RECIPES, GET_RECIPE_BY_ID } from "../actions/recipe.actions"
 
 const initialState:object = {}
 
 export default function recipeReducer(state = initialState, action:any){
     switch(action.type){
         case GET_RECIPES:
+            return action.payload
+        case GET_RECIPE_BY_ID:
             return action.payload
         default :
             return state;

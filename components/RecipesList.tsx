@@ -1,21 +1,9 @@
-import { FC, Fragment, useEffect, useState } from "react"
-import styled, { keyframes } from "styled-components";
-import { fadeIn } from "react-animations";
-import { useSelector } from "react-redux"
+import { FC, Fragment } from "react"
 import RecipeCard from "./RecipeCard"
-import Spinner from "../components/Spinner"
-import { getRecipesFromDb } from "../actions/recipe.actions";
-import db from "../src/Database";
+
+// TODO : modeling "recipes" using "recipe" model
 
 const RecipesList:FC<any> = ({ recipes }) =>{
-    const [IsLoading, setIsLoading] = useState<boolean>(true)
-    const Recipes = useSelector((state:any) => state.recipeReducer)
-
-    useEffect(() =>{
-        if(Recipes.length)
-            setIsLoading(false)
-            
-    }, [Recipes]);
     
     return(
         <Fragment>
