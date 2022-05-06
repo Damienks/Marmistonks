@@ -9,7 +9,7 @@ import { app } from '../src/Database'
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import { clearUserMessages, updateUserEmail, updateUserName, updateUserPassword } from "../actions/user.actions";
 import Alert from "./Alert";
-import { useAppDispatch } from "../.next/hooks/AppDisptachHook";
+import { useAppDispatch } from "../hooks/AppDsipatch";
 
 
 const auth = getAuth(app);

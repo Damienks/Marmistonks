@@ -1,4 +1,4 @@
-import rootReducer from "../reducers"
+//import rootReducer from "../reducers"
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from '../reducers/user.reducer'
 
