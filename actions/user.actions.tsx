@@ -1,5 +1,7 @@
 import { createUserWithEmailAndPassword, EmailAuthProvider, getAuth, reauthenticateWithCredential, signInWithEmailAndPassword, signOut, updateEmail, updatePassword, updateProfile } from '@firebase/auth';
 import { app } from '../src/Database'
+import { User } from 'firebase/auth'
+import CustomUser from '../models/user'
 
 const auth = getAuth(app);
 
@@ -15,8 +17,16 @@ export const CLEAR_USER_MESSAGES = "CLEAR_USER_MESSAGES";
 export const getUser = () =>{
     return (dispatch:any) =>{
         // Get current user
-        auth.onAuthStateChanged(function(user:any) {
-            dispatch({ type: GET_USER, payload: user ? user : 'none' });
+        auth.onAuthStateChanged(function(user:User | null) { 
+            
+            const userFromModel:CustomUser = {
+                uid: user?.uid,
+                email: user?.email,
+                emailVerified: user?.emailVerified,
+                displayName: user?.displayName,
+                metadata: user?.metadata
+            } 
+            dispatch({ type: GET_USER, payload: user ? userFromModel : null });
         });
     }
 }

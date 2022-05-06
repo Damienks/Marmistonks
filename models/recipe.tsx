@@ -1,11 +1,15 @@
+import { Comments } from "../models/comments"
+
 interface Recipe{
     id:string,
     title:string,
     desc:string,
-    img:string,
+    imageUrl:string,
     ingredientList:string,
-    createdAt:string,
-    userId:string
+    createdAt:number,
+    userName:string,
+    userId:string,
+    comments:Comments
 }
 
 export default Recipe

@@ -23,7 +23,12 @@ const RecipesList:FC<any> = ({ recipes }) =>{
                                             id={recipes[key].id}
                                             title={recipes[key].title}
                                             desc={recipes[key].desc}
-                                            img={recipes[key].imageUrl}
+                                            imageUrl={recipes[key].imageUrl}
+                                            userId={recipes[key].userId}
+                                            userName={recipes[key].userName}
+                                            ingredientList={recipes[key].ingredientList}
+                                            createdAt={recipes[key].createdAt}
+                                            comments={[]}
                                             />
                                         }
                                     </li>

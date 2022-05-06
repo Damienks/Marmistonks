@@ -1,4 +1,4 @@
-import { GET_RECIPES, GET_RECIPE_BY_ID } from "../actions/recipe.actions"
+import { GET_RECIPES, GET_RECIPE_BY_ID, GET_RECIPE_COMMENTS } from "../actions/recipe.actions"
 
 const initialState:object = {}
 
@@ -8,6 +8,8 @@ export default function recipeReducer(state = initialState, action:any){
             return action.payload
         case GET_RECIPE_BY_ID:
             return action.payload
+        case GET_RECIPE_COMMENTS:
+                return action.payload
         default :
             return state;
     }

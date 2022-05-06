@@ -7,10 +7,10 @@ import db from '../src/Database'
 // Redux
 import { Provider } from 'react-redux';
 import store from '../store/store';
-import { getRecipes, getRecipesFromDb } from '../actions/recipe.actions';
+import { getRecipesFromDb } from '../actions/recipe.actions';
 import { getUser } from '../actions/user.actions';
 
-const Root:FC<any> = ({recipes}) =>{
+const Root:FC<any> = (props) =>{
 
   useEffect(() => {
     store.dispatch(getUser());
@@ -25,7 +25,7 @@ const Root:FC<any> = ({recipes}) =>{
       </Head>
       <div className="app source-sans color-primary text-base">
         <Header />
-        {recipes && <RecipesList recipes={ recipes } /> }
+        {props.recipes && <RecipesList recipes={ props.recipes } /> }
       </div>
     </Provider>
   )

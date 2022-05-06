@@ -1,8 +1,11 @@
-import  { Firestore, collection, getDocs, orderBy, query, getDoc, DocumentData, DocumentReference, doc, DocumentSnapshot } from "firebase/firestore"
+import  { Firestore, collection, getDocs, orderBy, query, getDoc, DocumentData, DocumentReference, doc, DocumentSnapshot, where, setDoc, Timestamp } from "firebase/firestore"
+import { v4 as uuidv4 } from 'uuid';
 import db from '../src/Database'
 
 export const GET_RECIPES = "GET_RECIPES";
 export const GET_RECIPE_BY_ID = "GET_RECIPE_BY_ID";
+export const GET_RECIPE_COMMENTS = "GET_RECIPE_COMMENTS";
+export const POST_RECIPE_COMMENT = "POST_RECIPE_COMMENT";
 
 // Création d'une fonction asynchrone scopée de récupération des données
 export async function getRecipesFromDb(db:Firestore) {
@@ -32,6 +35,21 @@ export async function getRecipeByIdFromDb(db:Firestore, id:string) {
     }
 }
 
+// Création d'une fonction asynchrone scopée de récupération des données
+export async function getCommentsForRecipeFromDb(db:Firestore, id:string) {
+    try{
+        // Requête de la collection sur laquelle on veut taper
+        const q = query(collection(db, "comments"), where("recipeId", "==", id), orderBy("date", "desc"));
+        // Snapshot = en temps réel (d'ou le "await")
+        const messageSnapshot = await getDocs(q);
+        // On réucpère les docs à partir des données en temps réel
+        const docList = messageSnapshot.docs.map(doc => ({id: doc.id, ...doc.data()})); 
+        return docList;
+    }catch(error:any){
+        console.log(error.code + ' : ' + error.message)
+    }
+}
+
 export const getRecipeById = (id:string) =>{
     return (dispatch:any) =>{
         
@@ -52,4 +70,40 @@ export const getRecipes = () =>{
         }).catch((e) => console.log({e}));
     }
 
+}
+
+export const getCommentsForRecipe = (id:string) =>{
+    return (dispatch:any) =>{
+        
+        // Exécution de la fonction asynchrone scopée, puis...
+        getCommentsForRecipeFromDb(db, id).then((commentList)=>{
+            dispatch({ type: GET_RECIPE_COMMENTS, payload: commentList });
+        }).catch((e) => console.log({e}));
+    }
+
+}
+
+export async function postCommentForRecipeInDb (db:Firestore, recipeId:string, author:string, commentTitle:string, commentText:string){
+    try{
+        await setDoc(doc(db, "comments", uuidv4()), {
+            author,
+            comment: commentText,
+            date: Timestamp.fromDate(new Date(Date.now())),
+            recipeId,
+            title: commentTitle
+          });
+
+        return "Votre commentaire a bien été envoyé !";
+    }catch(error:any){
+        console.log(error.code + ' : ' + error.message)
+    }
+}
+
+export const postCommentForRecipe = (recipeId:string, author:string, commentTitle:string, commentText:string) =>{
+    return (dispatch:any) =>{
+        // Exécution de la fonction asynchrone scopée, puis...
+        postCommentForRecipeInDb(db, recipeId, author, commentTitle, commentText).then((message)=>{
+            dispatch({ type: POST_RECIPE_COMMENT, payload: message });
+        }).catch((e) => console.log({e}));
+    }
 }

@@ -1,7 +1,7 @@
 import React, { createRef, FC, Fragment, LegacyRef, useEffect, useState } from "react"
 import styled, { keyframes } from "styled-components";
 import { fadeIn } from "react-animations";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { getAuth } from "@firebase/auth";
@@ -9,6 +9,7 @@ import { app } from '../src/Database'
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import { clearUserMessages, updateUserEmail, updateUserName, updateUserPassword } from "../actions/user.actions";
 import Alert from "./Alert";
+import { useAppDispatch } from "../.next/hooks/AppDisptachHook";
 
 
 const auth = getAuth(app);
@@ -38,7 +39,7 @@ const UserProfile:FC = () =>{
     const UserCreatedAt:string = User != null ? new Intl.DateTimeFormat('fr-FR', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(User.metadata.createdAt) : '';
 
     // Dispatch
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() =>{
         setIsLoading(loading);
