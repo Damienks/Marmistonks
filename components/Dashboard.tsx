@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { app } from "../src/Database";
 import Form from "./Form"
 import UserProfile from "./UserProfile";
-import Spinner from '../components/Spinner'
+import Spinner from './assets/Spinner'
 
 interface DashboardProps{
     type:string

@@ -1,8 +1,8 @@
 import React, { FC, Fragment, useState } from 'react'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from '../src/Database'
-import { useDispatch } from 'react-redux';
 import { createUser } from '../actions/user.actions'
+import { useAppDispatch } from '../hooks/AppDsipatch';
 
 interface FormProps{
     formType:string
@@ -13,7 +13,7 @@ const Form:FC<FormProps> = ({ formType }) =>{
     const [UserPseudo, setUserPseudo] = useState('')
     const [UserEmail, setUserEmail] = useState('')
     const [UserPassword, setUserPassword] = useState('')
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const isLoginFormType:boolean = formType === 'login'
 
@@ -38,7 +38,7 @@ const Form:FC<FormProps> = ({ formType }) =>{
                 }
             }else{
                 // Connexion via Facebook
-                alert('Facebook')
+                alert('Todo : Facebook connection')
             }
         }
     }
@@ -69,7 +69,7 @@ const Form:FC<FormProps> = ({ formType }) =>{
                 isLoginFormType &&
                 <form className="form" onSubmit={ handleSubmit }>
                     <div className='m-top-20 m-bottom-20'>
-                        <button className='col btn btn-primary w-100-p' onClick={ () => handleLoginProcess("fb") } type="submit"> Se connecter avec Facebook</button>
+                        <button className='col py-2 rounded bg-blue-600 hover:bg-blue-800 border-0 text-white w-100-p' onClick={ () => handleLoginProcess("fb") } type="submit"> Se connecter avec Facebook</button>
                     </div>
                 </form>
             }
@@ -78,7 +78,7 @@ const Form:FC<FormProps> = ({ formType }) =>{
                     isLoginFormType &&
                     <Fragment>
                         <p className='no-margin'>ou</p>
-                        <h3 className='signika text-2xl'>connectez-vous avec vos identifiants <br/><strong>Ma Boîte à Recettes</strong></h3>
+                        <h3 className='signika text-2xl'>connectez-vous avec vos identifiants <br/><strong>Marmistonks</strong></h3>
                     </Fragment>
                 }
                 <div className='m-top-20 m-bottom-20'>

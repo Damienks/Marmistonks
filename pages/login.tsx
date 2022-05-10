@@ -1,24 +1,22 @@
-import Head from 'next/head'
+// React
 import { FC, useEffect, useState } from 'react'
+// Next
+import Head from 'next/head'
+import router from 'next/router'
+// Components
 import Header from '../components/Header';
 import Dashboard from '../components/Dashboard';
+// Redux
 import { Provider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from '../reducers'
-import thunk from 'redux-thunk';
+import store from '../store/store';
+// Actions
 import { getUser } from '../actions/user.actions';
+// Firebase
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getAuth } from '@firebase/auth';
 import { app } from '../src/Database'
-import router from 'next/router'
 
 const auth = getAuth(app);
-
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
-)
 
 store.dispatch(getUser());
 
@@ -38,7 +36,6 @@ const Login:FC = () => {
 
   return (
     <Provider store={ store }>
-      
       <Head>
         <title>marmistonks | Login</title>
         <link rel='icon' href='/favicon.ico' />

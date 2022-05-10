@@ -1,14 +1,21 @@
+// React stuff/types/hooks
+import { FC } from "react";
+// Components
 import Head from 'next/head'
 import Header from "../../components/Header"
-import { FC } from "react";
-import { DocumentData } from "firebase/firestore";
-import db from '../../src/Database';
-import { getCommentsForRecipeFromDb, getRecipeByIdFromDb } from '../../actions/recipe.actions';
-import { Provider } from 'react-redux';
-import Recipe from '../../models/recipe'
-import store from "../../store/store";
-import { getUser } from "../../actions/user.actions";
 import CommentSection from '../../components/Comments';
+// Types/Models
+import { DocumentData } from "firebase/firestore";
+import Recipe from '../../models/recipe'
+// Firebase
+import db from '../../src/Database';
+// Redux
+import { Provider } from 'react-redux';
+import store from "../../store/store";
+// Actions
+import { getCommentsForRecipeFromDb, getRecipeByIdFromDb } from '../../actions/recipe.actions';
+import { getUser } from "../../actions/user.actions";
+
 
 store.dispatch(getUser());
 

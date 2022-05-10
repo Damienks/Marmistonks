@@ -7,6 +7,7 @@ import db from '../src/Database'
 // Redux
 import { Provider } from 'react-redux';
 import store from '../store/store';
+// Actions
 import { getRecipesFromDb } from '../actions/recipe.actions';
 import { getUser } from '../actions/user.actions';
 
@@ -14,7 +15,6 @@ const Root:FC<any> = (props) =>{
 
   useEffect(() => {
     store.dispatch(getUser());
-    // store.dispatch(getRecipes());
   },[])
 
   return(

@@ -1,15 +1,24 @@
+// React stuff/types/hooks
 import React, { createRef, FC, Fragment, LegacyRef, useEffect, useState } from "react"
+// Components
+import Alert from "./assets/Alert";
+// Styles
 import styled, { keyframes } from "styled-components";
 import { fadeIn } from "react-animations";
-import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useAuthState } from 'react-firebase-hooks/auth'
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
+// Firebase
 import { getAuth } from "@firebase/auth";
 import { app } from '../src/Database'
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
-import { clearUserMessages, updateUserEmail, updateUserName, updateUserPassword } from "../actions/user.actions";
-import Alert from "./Alert";
+// Hooks
+import { useSelector } from "react-redux";
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { useAppDispatch } from "../hooks/AppDsipatch";
+// Actions
+import { clearUserMessages, updateUserEmail, updateUserName, updateUserPassword } from "../actions/user.actions";
+// Utils
+import { convertToIntelligibleDate } from "../utils/dateUtils";
+
 
 
 const auth = getAuth(app);
@@ -36,7 +45,7 @@ const UserProfile:FC = () =>{
     const HasLoadedUser:boolean = !loading && userFromAuth != null && User != null && User.displayName != null;
 
     // Account creation date
-    const UserCreatedAt:string = User != null ? new Intl.DateTimeFormat('fr-FR', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(User.metadata.createdAt) : '';
+    const UserCreatedAt:string = User != null ? convertToIntelligibleDate(User.metadata.createdAt) : '';
 
     // Dispatch
     const dispatch = useAppDispatch();

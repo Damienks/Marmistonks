@@ -1,6 +1,8 @@
+// Firebase
 import { createUserWithEmailAndPassword, EmailAuthProvider, getAuth, reauthenticateWithCredential, signInWithEmailAndPassword, signOut, updateEmail, updatePassword, updateProfile } from '@firebase/auth';
 import { app } from '../src/Database'
 import { User } from 'firebase/auth'
+// Types/Models
 import CustomUser from '../models/user'
 
 const auth = getAuth(app);
