@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 // Utils
 import { convertFbTsToIntelligibleDate } from "../utils/dateUtils";
 import Modal from "./assets/Modal";
+import React from "react";
 
 const CommentSection:FC<Recipe> = (recipe) =>{
 
@@ -30,10 +31,12 @@ const CommentSection:FC<Recipe> = (recipe) =>{
     const handleSubmit:React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault()
         setIsLoading(true)
-        if(User != null){
+        if(User && User.displayName){
             postCommentForRecipeInDb(db, recipe.id, User.displayName, userCommentTitle, userComment).then((data)=>{
-                setPostCommentSuccess(data)
-                window.location.reload()
+                if(data){
+                    setPostCommentSuccess(data)
+                    window.location.reload()
+                }
             }).catch((e) => {
                 setPostCommentError(e)
             });
